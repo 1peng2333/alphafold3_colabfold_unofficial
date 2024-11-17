@@ -1,6 +1,6 @@
 ![header](docs/header_2.png)
 The notebook could be accessed here:
-[Google Colab](https://colab.research.google.com/drive/1wTvTq_kYpBThaWg3oUNUIMFp5Gw8Se2M?usp=sharing).
+[Google Colab](https://colab.research.google.com/github/1peng2333/alphafold3_colabfold_unofficial/blob/main/AlphaFold3_Colab_b1.0.2.ipynb)
 
 This is an unofficial implementaion of AlphaFold 3 on Google Colab using Jupyter runtime. 
 It makes the folding parameters smooth and interactive without the need to json files editing.
