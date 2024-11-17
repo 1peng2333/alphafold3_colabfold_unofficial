@@ -43,15 +43,24 @@ WORKDIR /app/alphafold
 # Install the Python dependencies AlphaFold 3 needs.
 RUN pip3 install -r dev-requirements.txt
 RUN pip3 install --no-deps .
+RUN pip install jupyter
+
 # Build chemical components database (this binary was installed by pip).
 RUN build_data
+
+# Open up ports.
+EXPOSE 9000
 
 # To work around a known XLA issue causing the compilation time to greatly
 # increase, the following environment variable setting XLA flags must be enabled
 # when running AlphaFold 3:
 ENV XLA_FLAGS="--xla_gpu_enable_triton_gemm=false"
-# Memory settings used for folding up to 5,120 tokens on A100 80 GB.
-ENV XLA_PYTHON_CLIENT_PREALLOCATE=true
-ENV XLA_CLIENT_MEM_FRACTION=0.95
 
-CMD ["python3", "run_alphafold.py"]
+# Memory settings used for folding up to 5,120 tokens on A100 80 GB.
+# Optimized for smaller memory video cards. 
+ENV XLA_PYTHON_CLIENT_PREALLOCATE=false
+ENV TF_FORCE_UNIFIED_MEMORY=true
+ENV XLA_CLIENT_MEM_FRACTION=3.2
+
+# Run Jupyter Runtime.
+CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=9000", "--no-browser", "--allow-root", "--NotebookApp.allow_origin='https://colab.research.google.com'", "--NotebookApp.port_retries=0"]
