@@ -305,7 +305,9 @@ Once you started AlphaFold 3, you will see the following printed in your termina
 You need to copy the link starting with "http://127.0.0.1:9000/", make sure you copied everything including the token at the end.
 Open this Colab Notebook and execute the following in the figures:
 [Google Colab](https://colab.research.google.com/drive/1wTvTq_kYpBThaWg3oUNUIMFp5Gw8Se2M?usp=sharing).
-![header](docs/INST3.png)
-![header](docs/INST4.png)
+
+![Instruction Image 3](INST3.png)
+
+![Instruction Image 4](INST4.png)
 
 Everything should be all set, happy folding!
