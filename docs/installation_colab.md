@@ -311,3 +311,9 @@ Open this Colab Notebook and execute the following in the figures:
 ![Instruction Image 4](INST4.png)
 
 Everything should be all set, happy folding!
+
+In the future, you can use your container again by doing:
+
+```sh
+docker run -i AlphaFold3
+```
