@@ -192,14 +192,15 @@ _SEQRES_DATABASE_PATH = flags.DEFINE_string(
 # Number of CPUs to use for MSA tools.
 _JACKHMMER_N_CPU = flags.DEFINE_integer(
     'jackhmmer_n_cpu',
-    min(multiprocessing.cpu_count(), 8),
-    'Number of CPUs to use for Jackhmmer. Default to min(cpu_count, 8). Going'
+    min(multiprocessing.cpu_count(), 16),
+    'Number of CPUs to use for Jackhmmer. Default to min(cpu_count, 16). Going'
     ' beyond 8 CPUs provides very little additional speedup.',
 )
+# Tested that more cores do makes things run faster.
 _NHMMER_N_CPU = flags.DEFINE_integer(
     'nhmmer_n_cpu',
-    min(multiprocessing.cpu_count(), 8),
-    'Number of CPUs to use for Nhmmer. Default to min(cpu_count, 8). Going'
+    min(multiprocessing.cpu_count(), 16),
+    'Number of CPUs to use for Nhmmer. Default to min(cpu_count, 16). Going'
     ' beyond 8 CPUs provides very little additional speedup.',
 )
 
