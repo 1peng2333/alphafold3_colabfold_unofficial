@@ -1,5 +1,19 @@
 ![header](docs/header.jpg)
 
+The notebook could be accessed here:
+[Google Colab]([https://github.com/google-deepmind/alphafold3/blob/main/WEIGHTS_TERMS_OF_USE.md](https://colab.research.google.com/drive/1wTvTq_kYpBThaWg3oUNUIMFp5Gw8Se2M?usp=sharing)).
+
+This is an unofficial implementaion of AlphaFold 3 on Google Colab using Jupyter runtime. 
+It makes the folding parameters smooth and interactive without the need to json files editing.
+Simulating the I/O interface featured in [ColabFold](https://github.com/sokrypton/ColabFold).
+
+According to the [terms of use](https://github.com/google-deepmind/alphafold3/blob/main/WEIGHTS_TERMS_OF_USE.md). 
+This implementation could only be ran locally and you have to request AlphaFold 3 parameter from
+the AlphaFold 3 team. 
+
+# Installation
+See the [installation documentation](docs/installation_colab.md).
+
 # AlphaFold 3
 
 This package provides an implementation of the inference pipeline of AlphaFold
