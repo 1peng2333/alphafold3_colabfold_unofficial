@@ -1,5 +1,4 @@
-![header](docs/header.jpg)
-
+![header](docs/header_2.png)
 The notebook could be accessed here:
 [Google Colab]([https://github.com/google-deepmind/alphafold3/blob/main/WEIGHTS_TERMS_OF_USE.md](https://colab.research.google.com/drive/1wTvTq_kYpBThaWg3oUNUIMFp5Gw8Se2M?usp=sharing)).
 
@@ -13,6 +12,8 @@ the AlphaFold 3 team.
 
 # Installation
 See the [installation documentation](docs/installation_colab.md).
+
+![header](docs/header.jpg)
 
 # AlphaFold 3
 
