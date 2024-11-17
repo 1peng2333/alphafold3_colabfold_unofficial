@@ -22,7 +22,8 @@ The instructions provided below describe how to:
 1.  Install NVIDIA drivers for an A100.
 1.  Obtain genetic databases.
 1.  Obtain model parameters.
-1.  Build the AlphaFold 3 Docker container or Singularity image.
+1.  Build the AlphaFold 3 Docker container.
+1.  Start and Connect Google Colab to your local container.
 
 ## Provisioning a Machine
 
@@ -268,13 +269,13 @@ docker run -it \
     --volume $HOME/af_output:/root/af_output \
     --volume <MODEL_PARAMETERS_DIR>:/root/models \
     --volume <DATABASES_DIR>:/root/public_databases \
-    --gpus all \
-    alphafold3 \
-    python run_alphafold.py \
-    --json_path=/root/af_input/fold_input.json \
-    --model_dir=/root/models \
-    --output_dir=/root/af_output
+    --gpus=all \
+    -p 127.0.0.1:9000:9000 \
+    --name AlphaFold3 \
+    alphafold3 
 ```
+Note: <DATABASES_DIR> and <MODEL_PARAMETERS_DIR> are the location where your 
+AlphaFold 3 model and the 600GB database is located.
 
 :ledger: **Note: In the example above the databases have been placed on the
 persistent disk, which is slow.** If you want better genetic and template search
@@ -286,71 +287,25 @@ paths (flags named `--volume` above) in the correct locations.
 ```
 docker: Error response from daemon: error while creating mount source path '/srv/alphafold3_data/models': mkdir /srv/alphafold3_data/models: permission denied.
 ```
+## Start and Connect Google Colab to your local container
 
-## Running Using Singularity Instead of Docker
-
-You may prefer to run AlphaFold 3 within Singularity. You'll still need to
-*build* the Singularity image from the Docker container. Afterwards, you will
-not have to depend on Docker (at structure prediction time).
-
-### Install Singularity
-
-Official Singularity instructions are
-[here](https://docs.sylabs.io/guides/3.3/user-guide/installation.html). The
-commands we ran are:
+Once you started AlphaFold 3, you will see the following printed in your terminal: 
 
 ```sh
-wget https://github.com/sylabs/singularity/releases/download/v4.2.1/singularity-ce_4.2.1-jammy_amd64.deb
-sudo dpkg --install singularity-ce_4.2.1-jammy_amd64.deb
-sudo apt-get install -f
+
+[I 2024-11-17 22:51:27.848 ServerApp] jupyterlab | extension was successfully loaded.
+[I 2024-11-17 22:51:27.849 ServerApp] notebook | extension was successfully loaded.
+[I 2024-11-17 22:51:27.849 ServerApp] Serving notebooks from local directory: /app/alphafold
+[I 2024-11-17 22:51:27.849 ServerApp] Jupyter Server 2.14.2 is running at:
+[I 2024-11-17 22:51:27.849 ServerApp] http://51204ec36658:9000/tree?token=daec70d78d65d8843ab55642dc4f7fe1ede1ef4a687e042f
+[I 2024-11-17 22:51:27.849 ServerApp]     http://127.0.0.1:9000/tree?token=daec70d78d65d8843ab55642dc4f7fe1ede1ef4a687e042f
+[I 2024-11-17 22:51:27.849 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+
 ```
+You need to copy the link starting with "http://127.0.0.1:9000/", make sure you copied everything including the token at the end.
+Open this Colab Notebook and execute the following in the figures:
+[Google Colab](https://colab.research.google.com/drive/1wTvTq_kYpBThaWg3oUNUIMFp5Gw8Se2M?usp=sharing).
+![header](docs/INST3.png)
+![header](docs/INST4.png)
 
-### Build the Singularity Container From the Docker Image
-
-After building the *Docker* container above with `docker build -t`, start a
-local Docker registry and upload your image `alphafold3` to it. Singularity's
-instructions are [here](https://github.com/apptainer/singularity/issues/1537).
-The commands we ran are:
-
-```sh
-docker run -d -p 5000:5000 --restart=always --name registry registry:2
-docker tag alphafold3 localhost:5000/alphafold3
-docker push localhost:5000/alphafold3
-```
-
-Then build the Singularity container:
-
-```sh
-SINGULARITY_NOHTTPS=1 singularity build alphafold3.sif docker://localhost:5000/alphafold3:latest
-```
-
-You can confirm your build by starting a shell and inspecting the environment.
-For example, you may want to ensure the Singularity image can access your GPU.
-You may want to restart your computer if you have issues with this.
-
-```sh
-singularity exec --nv alphafold3.sif sh -c 'nvidia-smi'
-```
-
-You can now run AlphaFold 3!
-
-```sh
-singularity exec --nv alphafold3.sif <<args>>
-```
-
-For example:
-
-```sh
-singularity exec \
-     --nv \
-     --bind $HOME/af_input:/root/af_input \
-     --bind $HOME/af_output:/root/af_output \
-     --bind <MODEL_PARAMETERS_DIR>:/root/models \
-     --bind <DATABASES_DIR>:/root/public_databases \
-     alphafold3.sif \
-     python alphafold3/run_alphafold.py \
-     --json_path=/root/af_input/fold_input.json \
-     --model_dir=/root/models \
-     --db_dir=/root/public_databases \
-     --output_dir=/root/af_output
-```
+Everything should be all set, happy folding!
