@@ -13,7 +13,27 @@ the AlphaFold 3 team.
 # Installation
 See the [installation documentation](docs/installation_colab.md).
 
-![header](docs/header.jpg)
+## Obtaining Model Parameters
+
+This repository contains all necessary code for AlphaFold 3 inference. To
+request access to the AlphaFold 3 model parameters, please complete
+[this form](https://forms.gle/svvpY4u2jsHEwWYS6). Access will be granted at
+Google DeepMind’s sole discretion. We will aim to respond to requests within 2–3
+business days. You may only use AlphaFold 3 model parameters if received
+directly from Google. Use is subject to these
+[terms of use](https://github.com/google-deepmind/alphafold3/blob/main/WEIGHTS_TERMS_OF_USE.md).
+
+## AlphaFold 3 Input
+
+See the [input documentation](docs/input.md).
+
+## AlphaFold 3 Output
+
+See the [output documentation](docs/output.md).
+
+## Performance
+
+See the [performance documentation](docs/performance.md).
 
 # AlphaFold 3
 
@@ -37,78 +57,6 @@ though with a more limited set of ligands and covalent modifications.
 
 If you have any questions, please contact the AlphaFold team at
 [alphafold@google.com](mailto:alphafold@google.com).
-
-## Obtaining Model Parameters
-
-This repository contains all necessary code for AlphaFold 3 inference. To
-request access to the AlphaFold 3 model parameters, please complete
-[this form](https://forms.gle/svvpY4u2jsHEwWYS6). Access will be granted at
-Google DeepMind’s sole discretion. We will aim to respond to requests within 2–3
-business days. You may only use AlphaFold 3 model parameters if received
-directly from Google. Use is subject to these
-[terms of use](https://github.com/google-deepmind/alphafold3/blob/main/WEIGHTS_TERMS_OF_USE.md).
-
-## Installation and Running Your First Prediction
-
-See the [installation documentation](docs/installation.md).
-
-Once you have installed AlphaFold 3, you can test your setup using e.g. the
-following input JSON file named `alphafold_input.json`:
-
-```json
-{
-  "name": "2PV7",
-  "sequences": [
-    {
-      "protein": {
-        "id": ["A", "B"],
-        "sequence": "GMRESYANENQFGFKTINSDIHKIVIVGGYGKLGGLFARYLRASGYPISILDREDWAVAESILANADVVIVSVPINLTLETIERLKPYLTENMLLADLTSVKREPLAKMLEVHTGAVLGLHPMFGADIASMAKQVVVRCDGRFPERYEWLLEQIQIWGAKIYQTNATEHDHNMTYIQALRHFSTFANGLHLSKQPINLANLLALSSPIYRLELAMIGRLFAQDAELYADIIMDKSENLAVIETLKQTYDEALTFFENNDRQGFIDAFHKVRDWFGDYSEQFLKESRQLLQQANDLKQG"
-      }
-    }
-  ],
-  "modelSeeds": [1],
-  "dialect": "alphafold3",
-  "version": 1
-}
-```
-
-You can then run AlphaFold 3 using the following command:
-
-```
-docker run -it \
-    --volume $HOME/af_input:/root/af_input \
-    --volume $HOME/af_output:/root/af_output \
-    --volume <MODEL_PARAMETERS_DIR>:/root/models \
-    --volume <DATABASES_DIR>:/root/public_databases \
-    --gpus all \
-    alphafold3 \
-    python run_alphafold.py \
-    --json_path=/root/af_input/fold_input.json \
-    --model_dir=/root/models \
-    --output_dir=/root/af_output
-```
-
-There are various flags that you can pass to the `run_alphafold.py` command, to
-list them all run `python run_alphafold.py --help`. Two fundamental flags that
-control which parts AlphaFold 3 will run are:
-
-*   `--run_data_pipeline` (defaults to `true`): whether to run the data
-    pipeline, i.e. genetic and template search. This part is CPU-only, time
-    consuming and could be run on a machine without a GPU.
-*   `--run_inference` (defaults to `true`): whether to run the inference. This
-    part requires a GPU.
-
-## AlphaFold 3 Input
-
-See the [input documentation](docs/input.md).
-
-## AlphaFold 3 Output
-
-See the [output documentation](docs/output.md).
-
-## Performance
-
-See the [performance documentation](docs/performance.md).
 
 ## Known Issues
 
