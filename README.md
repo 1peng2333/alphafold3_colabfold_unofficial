@@ -1,3 +1,6 @@
+Please Checkout for newer versions:
+[alphafold3_colab_jupyter] (https://github.com/1peng2333/alphafold3_colab_jupyter)
+
 ![header](docs/header_2.png)
 The notebook could be accessed here:
 [Google Colab](https://colab.research.google.com/github/1peng2333/alphafold3_colab_jupyter/blob/main/AlphaFold3_Colab_b1.2.0.ipynb)
