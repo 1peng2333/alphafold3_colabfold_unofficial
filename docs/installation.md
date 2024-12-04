@@ -26,7 +26,9 @@ The instructions provided below describe how to:
 1.  Install NVIDIA drivers for an A100.
 1.  Obtain genetic databases.
 1.  Obtain model parameters.
-1.  Build the AlphaFold 3 Docker container or Singularity image.
+1.  Setup Jupyter support for AlphaFold 3 
+
+(Skip to last part if you already have AF3 ready)
 
 ## Provisioning a Machine
 
@@ -131,6 +133,8 @@ Make sure that the latest NVIDIA driver is installed and running.
 
 Proceed only if `nvidia-smi` has a sensible output.
 
+Note that you must have CUDA 12.6 to use AlphaFold 3.
+
 ### Installing NVIDIA Support for Docker
 
 Official NVIDIA instructions are
@@ -185,7 +189,7 @@ Mon Nov  11 12:00:00 2024
 You will need to have `git` installed to download the AlphaFold 3 repository:
 
 ```sh
-git clone https://github.com/google-deepmind/alphafold3.git
+git clone https://github.com/1peng2333/alphafold3_colab_jupyter
 ```
 
 ## Obtaining Genetic Databases
@@ -330,11 +334,27 @@ Everything should be all set, happy folding!
 In the future, you can use your container again by doing:
 
 ```sh
-docker run -i AlphaFold3
+docker start -i AlphaFold3
 ```
 
-To access your machine with AF3 installed remotely, when connecting to your machine use ssh:
+If you can't not use docker start, you have to use docker run everytime
 
 ```sh
-ssh <IP> -l <Username> -L 9000:localhost:9000
+docker run -it \
+    --volume $HOME/af_input:/root/af_input \
+    --volume $HOME/af_output:/root/af_output \
+    --volume <MODEL_PARAMETERS_DIR>:/root/models \
+    --volume <DATABASES_DIR>:/root/public_databases \
+    --gpus=all \
+    -p 127.0.0.1:9000:9000 \
+    --name AlphaFold3 \
+    alphafold3  
 ```
+
+If you want to connect a remote machine running this implementation:
+
+```sh
+ssh <Your Machine IP> -l <login User_name> -L 9000:localhost:9000
+```
+
+END
