@@ -1,4 +1,11 @@
 ## AlphaFold 3 in Google Colab based on Jupyter
+**Implemented features:**
+  * Interactive sequence input in Colab supporting protein, D(R)NA, ligands and ions.
+  * Direct read MSA and Templates from .a3m or .cif files.
+  * Automatic plot the outputs. Including PLDT, PAE and sequence coverage plot.
+  * 3D visualization of the folded structure.
+  * Package and download the result.
+    
 ![header](docs/header_2.png)
 
 **The notebook could be accessed here:**
